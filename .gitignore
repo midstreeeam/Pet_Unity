@@ -59,4 +59,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 # VS ingore
-# bin
+bin
+obj
