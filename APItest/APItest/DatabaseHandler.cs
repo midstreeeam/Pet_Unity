@@ -9,26 +9,31 @@ public class DatabaseHandler
     public DatabaseHandler()
     {
         _db = new SQLiteConnection(ConfigurationManager.AppSettings["DBpath"]);
-        _db.CreateTable<Stock>();
-        _db.CreateTable<Valuation>();
+        TableInit();
     }
-    public void AddStock(String symbol_name)
-    {
 
-        var stock = new Stock
+    private void TableInit()
+    {
+        _db.CreateTable<Users>();
+        _db.CreateTable<Pets>();
+        _db.CreateTable<Animations>();
+        _db.CreateTable<History>();
+    }
+
+    public void AddUser(String user_name,  int pet_id, String email = null, String gender = null)
+    {
+        var user = new Users
         {
-            Symbol = symbol_name
+            UserName = user_name
+            , PetId = pet_id
+            ,Email = email
+            ,Gender = gender
         };
-
-        _db.Insert(stock);
+        _db.Insert(user);
     }
-    public void GetStocks()
+    public Users[] GetUsers()
     {
-        var stocks = _db.Query<Stock>("SELECT * FROM Stocks");
-
-        foreach (var stock in stocks)
-        {
-            Console.WriteLine(stock.Symbol);
-        }
+        var users = _db.Query<Users>("SELECT * FROM Users");
+        return users.ToArray();
     }
 }
