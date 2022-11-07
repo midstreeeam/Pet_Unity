@@ -26,6 +26,9 @@ public class Pets
     [PrimaryKey, AutoIncrement]
     [Column("id")]
     public int Id { get; set; }
+
+    [Column("name")]
+    public string Name { get; set; }
 }
 
 [Table("Animations")]
@@ -34,6 +37,9 @@ public class Animations
     [PrimaryKey,AutoIncrement]
     [Column("id")]
     public int Id { get; set; }
+
+    [Column("name"),NotNull]
+    public string Name { get; set; }
 }
 
 [Table("History")]
@@ -44,10 +50,10 @@ public class History
     public int Id { get; set; }
 
     [Column("user_id"), NotNull]
-    public string UserId { get; set; }
+    public int UserId { get; set; }
 
     [Column("pet_id"), NotNull]
-    public string PetId { get; set; }
+    public int PetId { get; set; }
 
     [Column("action_type"), NotNull]
     public string ActionType { get; set; }

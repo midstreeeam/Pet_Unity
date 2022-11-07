@@ -31,9 +31,24 @@ public class DatabaseHandler
         };
         _db.Insert(user);
     }
-    public Users[] GetUsers()
+    public Users[] GetAllUsers()
     {
         var users = _db.Query<Users>("SELECT * FROM Users");
         return users.ToArray();
+    }
+    public Users GetUserById(int Id)
+    {
+        return _db.Table<Users>().Where(t => t.Id == Id).ToList()[0];
+    }
+    public void AddHistory(int user_id, int pet_id, string action_type)
+    {
+        var history = new History
+        {
+            UserId = user_id,
+            PetId = GetUserById(user_id).PetId,
+            ActionType = action_type,
+            StartTime = DateTime.Now
+        };
+        _db.Insert(history);
     }
 }
